@@ -2,7 +2,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-// muestra la información del equipo local y pide dominios
+// muestra la información del equipo local y consulta dominios
 public class dominioConsultador {
 
     public static void main(String[] args) {
@@ -27,7 +27,16 @@ public class dominioConsultador {
             dominio = teclado.nextLine().trim();
 
             if (!dominio.equalsIgnoreCase("salir")) {
-                System.out.println("dominio introducido: " + dominio);
+
+                // consultamos la direccion del dominio
+                try {
+                    InetAddress direccion = InetAddress.getByName(dominio);
+
+                    System.out.println("ip: " + direccion.getHostAddress());
+
+                } catch (UnknownHostException e) {
+                    System.out.println("error: no se ha encontrado el dominio.");
+                }
             }
 
         } while (!dominio.equalsIgnoreCase("salir"));

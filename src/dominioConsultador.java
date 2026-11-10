@@ -28,11 +28,15 @@ public class dominioConsultador {
 
             if (!dominio.equalsIgnoreCase("salir")) {
 
-                // consultamos la direccion del dominio
+                // consultamos todas las direcciones del dominio
                 try {
-                    InetAddress direccion = InetAddress.getByName(dominio);
+                    InetAddress[] direcciones = InetAddress.getAllByName(dominio);
 
-                    System.out.println("ip: " + direccion.getHostAddress());
+                    System.out.println("direcciones encontradas:");
+
+                    for (int i = 0; i < direcciones.length; i++) {
+                        System.out.println(direcciones[i].getHostAddress());
+                    }
 
                 } catch (UnknownHostException e) {
                     System.out.println("error: no se ha encontrado el dominio.");

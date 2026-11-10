@@ -25,38 +25,47 @@ public class dominioConsultador {
 
         // pedimos dominios hasta que el usuario escriba salir
         do {
-            System.out.print("\nintroduce un dominio (o salir): ");
+            System.out.println("\n--- CONSULTA DE DOMINIOS ---");
+            System.out.println("ejemplos: minecraft.net, twitch.tv, steampowered.com");
+            System.out.print("introduce un dominio (o salir): ");
+
             dominio = teclado.nextLine().trim();
 
             if (!dominio.equalsIgnoreCase("salir")) {
 
-                // consultamos todas las direcciones del dominio
-                try {
-                    InetAddress[] direcciones = InetAddress.getAllByName(dominio);
+                if (dominio.isEmpty()) {
+                    System.out.println("error: debes introducir un dominio.");
 
-                    System.out.println("direcciones encontradas:");
+                } else {
 
-                    // recorremos todas las direcciones
-                    for (InetAddress direccion : direcciones) {
+                    // consultamos todas las direcciones del dominio
+                    try {
+                        InetAddress[] direcciones = InetAddress.getAllByName(dominio);
 
-                        if (direccion instanceof Inet4Address) {
-                            System.out.println("IPv4: "
-                                    + direccion.getHostAddress());
+                        System.out.println("\ndirecciones encontradas:");
 
-                        } else if (direccion instanceof Inet6Address) {
-                            System.out.println("IPv6: "
-                                    + direccion.getHostAddress());
+                        // recorremos todas las direcciones
+                        for (InetAddress direccion : direcciones) {
+
+                            if (direccion instanceof Inet4Address) {
+                                System.out.println("IPv4: "
+                                        + direccion.getHostAddress());
+
+                            } else if (direccion instanceof Inet6Address) {
+                                System.out.println("IPv6: "
+                                        + direccion.getHostAddress());
+                            }
                         }
-                    }
 
-                } catch (UnknownHostException e) {
-                    System.out.println("error: no se ha encontrado el dominio.");
+                    } catch (UnknownHostException e) {
+                        System.out.println("error: no se ha encontrado el dominio.");
+                    }
                 }
             }
 
         } while (!dominio.equalsIgnoreCase("salir"));
 
-        System.out.println("programa finalizado.");
+        System.out.println("\nprograma finalizado.");
 
         teclado.close();
     }

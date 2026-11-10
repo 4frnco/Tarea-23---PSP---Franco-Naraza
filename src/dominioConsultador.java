@@ -2,7 +2,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-// muestra la información del equipo local y pide un dominio
+// muestra la información del equipo local y pide dominios
 public class dominioConsultador {
 
     public static void main(String[] args) {
@@ -19,11 +19,20 @@ public class dominioConsultador {
             System.out.println("no se ha podido obtener la informacion del equipo.");
         }
 
-        // pedimos un dominio
-        System.out.print("\nintroduce un dominio: ");
-        String dominio = teclado.nextLine();
+        String dominio;
 
-        System.out.println("dominio introducido: " + dominio);
+        // pedimos dominios hasta que el usuario escriba salir
+        do {
+            System.out.print("\nintroduce un dominio (o salir): ");
+            dominio = teclado.nextLine().trim();
+
+            if (!dominio.equalsIgnoreCase("salir")) {
+                System.out.println("dominio introducido: " + dominio);
+            }
+
+        } while (!dominio.equalsIgnoreCase("salir"));
+
+        System.out.println("programa finalizado.");
 
         teclado.close();
     }
